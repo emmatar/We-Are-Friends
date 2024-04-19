@@ -1,0 +1,17 @@
+{
+  "name": "we-are-friends",
+  "version": "1.0.0",
+  "description": "A Social Network API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
