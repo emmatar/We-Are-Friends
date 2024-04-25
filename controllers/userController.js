@@ -12,7 +12,7 @@ module.exports = {
     async getSingleUser (req, res) {
         try {
             const singleUser = await User.findOne({ _id: req.params.userId })
-            .populate('thoughts');
+            .populate('thoughts').populate('friends')
             if (!singleUser) {
                 return res.status(404).json({ message: 'No course with that ID' });
               }
@@ -62,7 +62,7 @@ module.exports = {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $addToSet: { friends: req.body } },
+                { $addToSet: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             )
             if (!user) {
@@ -70,7 +70,9 @@ module.exports = {
                   .status(404)
                   .json({ message: 'No user found with that ID :(' });
               }
+              res.json(user)
         } catch (error) {
+            console.log(error);
             res.status(500).json(error)
         }
     },
@@ -78,7 +80,7 @@ module.exports = {
         try {
             const user = await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $pull: { friends: req.body } },
+                { $pull: { friends: req.params.friendId } },
                 { runValidators: true, new: true }
             )
             if (!user) {
@@ -86,6 +88,7 @@ module.exports = {
                   .status(404)
                   .json({ message: 'No user found with that ID :(' });
               }
+              res.json({ message: 'Friend has been deleted!' })
         } catch (error) {
             res.status(500).json(error)
         }
