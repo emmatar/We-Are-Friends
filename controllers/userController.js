@@ -29,7 +29,6 @@ module.exports = {
             res.status(500).json(error)
         }
     },    
-
     async updateUser (req, res) {
         try {
             const updateUser = await User.findOneAndUpdate(
@@ -45,7 +44,6 @@ module.exports = {
             res.status(500).json(error)
         }
     },
-
     async deleteUser (req, res) {
         try {
             const deleteUser = await User.findOneAndDelete(
@@ -56,6 +54,38 @@ module.exports = {
             }
             await Thought.deleteMany({ _id: { $in: deleteUser.thoughts } });
             res.json({ message: 'User deleted!'})
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    async createFriend (req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { friends: req.body } },
+                { runValidators: true, new: true }
+            )
+            if (!user) {
+                return res
+                  .status(404)
+                  .json({ message: 'No user found with that ID :(' });
+              }
+        } catch (error) {
+            res.status(500).json(error)
+        }
+    },
+    async deleteFriend (req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $pull: { friends: req.body } },
+                { runValidators: true, new: true }
+            )
+            if (!user) {
+                return res
+                  .status(404)
+                  .json({ message: 'No user found with that ID :(' });
+              }
         } catch (error) {
             res.status(500).json(error)
         }
