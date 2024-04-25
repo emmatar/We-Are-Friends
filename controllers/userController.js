@@ -6,7 +6,7 @@ module.exports = {
             const users = await User.find();
             res.json(users);
         } catch (error) {
-            res.status(500).json(err);
+            res.status(500).json(error);
         }
     },
     async getSingleUser (req, res) {
@@ -36,10 +36,10 @@ module.exports = {
                 { $set: req.body },
                 { runValidators: true, new: true }
             )
-
             if (!updateUser) {
                 res.status(404).json({ message: 'No user with this id!'})
             }
+            res.json(updateUser);
         } catch (error) {
             res.status(500).json(error)
         }
