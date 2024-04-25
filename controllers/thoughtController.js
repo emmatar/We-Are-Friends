@@ -22,6 +22,11 @@ module.exports = {
     async createThought (req, res) {
         try {
             const createThought = await Thought.create(req.body);
+            await User.findOneAndUpdate(
+                { _id: req.params.userId },
+                { $addToSet: { thoughts: thought._id } },
+                { new: true }
+            )
             res.json(createThought);
         } catch (error) {
             res.status(500).json(error)
