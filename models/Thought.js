@@ -1,9 +1,41 @@
 // Defining Schema, model
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 // Using moment for date formatting
 const moment = require('moment');
 // calling reaction schema from Reaction.js file
-const reactionSchema = require('./Reaction');
+//  Define the shape of the documents within the collection.
+const reactionSchema = new Schema(
+    {
+      reactionId: {
+        type: Schema.Types.ObjectId,
+        default: () => new Types.ObjectId(),
+      },
+      reactionBody: {
+        type: String,
+        required: true,
+        maxlength: 280,
+      },
+      username: {
+        type: String,
+        required: true,
+      },
+      createdAt: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+    {
+      toJSON: {
+        virtuals: true,
+        getters: true
+      },
+      id: false,
+    }
+  );
+
+  reactionSchema.virtual('formattedDate').get(function () {
+    return moment(this.createdAt).format('MMM Do, YYYY [at] hh:mm a')
+  })
 
 const thoughtSchema = new Schema(
     {
