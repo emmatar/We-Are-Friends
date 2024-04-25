@@ -24,11 +24,12 @@ module.exports = {
             const createThought = await Thought.create(req.body);
             await User.findOneAndUpdate(
                 { _id: req.params.userId },
-                { $push: { thoughts: thought._id } },
+                { $push: { thoughts: createThought._id } },
                 { new: true }
             )
             res.json(createThought);
         } catch (error) {
+            console.log(error);
             res.status(500).json(error)
         }
     },
