@@ -64,13 +64,14 @@ module.exports = {
     },
     async addReaction (req,res) {
         try {
-            const thought = await Thought.find(
+            const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $addToSet: { reactions: req.body }},
                 { runValidators: true, new: true }
             ).populate('reactions');
             res.json(thought);
         } catch (error) {
+            console.log(error);
             res.status(500).json(error)
         }
     },
