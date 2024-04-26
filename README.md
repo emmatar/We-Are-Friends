@@ -58,10 +58,10 @@ http://localhost:3001/api/friends/3<br />
 The last parameter of '3' is the identity of the data the friend is wanting to delete.
 
 
-[Here's a link to the Walkthrough Video!](...)
+[Here's a link to the Walkthrough Video!](https://drive.google.com/file/d/1m0Ka_ur_6vsWUIL_dJAgdhVinZFWDAEa/view)
 
-![Screenshot1]()
-![Screenshot2]()
+![Screenshot1](/lib/images/Screenshot%202024-04-25%20at%207.18.25 PM.png)
+![Screenshot2](/lib/images/Screenshot%202024-04-25%20at%208.06.57 PM.png)
 
 
 Woah, a Congratulations are in order. "CONGRATULATIONS", on using the best "whelming" piece of software that was ever made for the UNIVERSE! "Yahoooo!"
