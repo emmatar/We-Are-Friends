@@ -64,23 +64,25 @@ module.exports = {
     },
     async addReaction (req,res) {
         try {
-            const addReaction = await Thought.findOneAndUpdate(
+            const thought = await Thought.find(
                 { _id: req.params.thoughtId },
                 { $addToSet: { reactions: req.body }},
                 { runValidators: true, new: true }
             ).populate('reactions');
-            res.json(addReaction);
+            res.json(thought);
         } catch (error) {
             res.status(500).json(error)
         }
     },
     async removeReaction (req,res) {
         try {
-            const removeReaction = await Thought.findOneAndUpdate(
+            const thought = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
-                { $pull: { reactions: { _id: req.params.reactionId } } },
+                { $pull: { reactions: { reactionId: req.params.reactionId } } },
                 { runValidators: true, new: true }
             )
+            console.log(thought);
+        res.json(thought);
         } catch (error) {
             res.status(500).json(error)
         }
